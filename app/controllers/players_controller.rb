@@ -3,17 +3,19 @@ class PlayersController < ApplicationController
     @players = Player.all
     render :index
   end
+
   def show
     @player = Player.find_by(id: params["id"])
     render :show
   end
 
   def create
-    @player = Player.new(
+    player = Player.new(
     name: params[:name],
     jersey: params[:jersey],
     team: params[:team],
-    position: params[:position]
+    position: params[:position],
+    mvp: params[:mvp]
     )
     @player.save
     render :show
@@ -25,6 +27,7 @@ class PlayersController < ApplicationController
     @player.jersey = params[:jersey] || @player.jersey
     @player.team = params[:team] || @player.team
     @player.position = params[:position] || @player.position
+    @player.mvp = params[:mvp] || @player.mvp
     @player.save
     render :show
   end
@@ -34,7 +37,8 @@ class PlayersController < ApplicationController
     @player.destroy
     render json:{message: "Player Destroyed."}
   end
-
+  
+  
 
 
 
